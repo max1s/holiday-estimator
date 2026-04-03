@@ -1,83 +1,62 @@
 import { transportRates } from "../data/transport";
 import { airportParkingCosts } from "../data/airports";
 
-/**
- * Calculate transport cost to airport
- * @param {string} transportMode - "car" | "taxi" | "train" | "bus"
- * @param {number} distanceMiles - distance from city to airport
- * @returns {number} - one-way cost in GBP
- */
+// Cheapest multipliers — budget carrier / advance deal / budget accommodation
+const CHEAP_FLIGHT_FACTOR = 0.65;
+const CHEAP_ACCOM_FACTOR  = 0.60;
+
 export function calcTransportCost(transportMode, distanceMiles) {
   const rate = transportRates[transportMode];
   if (!rate) return 0;
-  const cost = distanceMiles * rate.perMile;
-  return Math.max(cost, rate.minCost);
+  return Math.max(distanceMiles * rate.perMile, rate.minCost);
 }
 
-/**
- * Calculate airport parking cost
- * @param {string} airportCode
- * @param {number} nights - total trip nights (parking days = nights + 1 buffer)
- * @returns {number} - total parking cost in GBP
- */
-export function calcParkingCost(airportCode, nights) {
+export function calcParkingCost(airportCode, nights, cheap = false) {
   const parking = airportParkingCosts[airportCode];
   if (!parking) return 0;
-  // Use off-airport (cheaper) rate; days = nights + 1 (day of departure counts)
   const days = nights + 1;
-  return parking.offAirport * days;
+  return (cheap ? parking.offAirport : parking.onAirport) * days;
 }
 
-/**
- * Calculate return flight cost with a multiplier for longer stays (booked earlier)
- * @param {object} destination
- * @param {string} airportCode
- * @param {number} nights
- * @returns {number} - return flight cost in GBP
- */
-export function calcFlightCost(destination, airportCode, nights) {
+export function calcFlightCost(destination, airportCode, nights, cheap = false) {
   const base = destination.baseFlightCost[airportCode] ?? 180;
-  // Slight discount for longer trips (assume booked in advance)
-  const discount = nights >= 7 ? 0.95 : 1.0;
-  return Math.round(base * discount);
+  const advanceDiscount = nights >= 7 ? 0.95 : 1.0;
+  const factor = cheap ? CHEAP_FLIGHT_FACTOR : advanceDiscount;
+  return Math.round(base * factor);
 }
 
-/**
- * Calculate total accommodation cost
- * @param {object} destination
- * @param {string} locationType - "centre" | "outskirts"
- * @param {number} nights
- * @returns {number} - total accommodation cost in GBP
- */
-export function calcAccommodationCost(destination, locationType, nights) {
+export function calcAccommodationCost(destination, locationType, nights, cheap = false) {
   const nightly = destination.accommodation[locationType] ?? 100;
-  return nightly * nights;
+  const factor = cheap ? CHEAP_ACCOM_FACTOR : 1.0;
+  return Math.round(nightly * factor * nights);
 }
 
-/**
- * Full trip cost breakdown
- */
-export function calcTotalCost({ city, transportMode, nights, destination, locationType }) {
+function buildScenario({ city, transportMode, nights, destination, locationType }, cheap) {
   const transportOneWay = calcTransportCost(transportMode, city.distanceMiles);
-  const transportTotal = transportOneWay * 2; // return journey
-  const parking = transportMode === "car" ? calcParkingCost(city.airportCode, nights) : 0;
-  const flights = calcFlightCost(destination, city.airportCode, nights);
-  const accommodation = calcAccommodationCost(destination, locationType, nights);
-  const total = transportTotal + parking + flights + accommodation;
+  const transportTotal  = Math.round(transportOneWay * 2);
+  const parking         = transportMode === "car" ? Math.round(calcParkingCost(city.airportCode, nights, cheap)) : 0;
+  const flights         = calcFlightCost(destination, city.airportCode, nights, cheap);
+  const accommodation   = calcAccommodationCost(destination, locationType, nights, cheap);
+  const total           = transportTotal + parking + flights + accommodation;
 
   return {
-    transportTotal: Math.round(transportTotal),
-    parking: Math.round(parking),
+    transportTotal,
+    parking,
     flights,
     accommodation,
-    total: Math.round(total),
+    total,
     perNight: Math.round(total / nights),
-    breakdown: {
-      transportOneWay: Math.round(transportOneWay),
-      parkingPerDay: transportMode === "car"
-        ? (airportParkingCosts[city.airportCode]?.offAirport ?? 0)
-        : 0,
-      accommodationPerNight: destination.accommodation[locationType] ?? 0,
+    meta: {
+      transportOneWay:       Math.round(transportOneWay),
+      parkingPerDay:         transportMode === "car" ? (airportParkingCosts[city.airportCode]?.[cheap ? "offAirport" : "onAirport"] ?? 0) : 0,
+      accommodationPerNight: Math.round((destination.accommodation[locationType] ?? 100) * (cheap ? CHEAP_ACCOM_FACTOR : 1.0)),
     },
+  };
+}
+
+export function calcTotalCost(inputs) {
+  return {
+    cheapest: buildScenario(inputs, true),
+    average:  buildScenario(inputs, false),
   };
 }

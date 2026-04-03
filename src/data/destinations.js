@@ -1,11 +1,15 @@
 // Popular European city destinations with flight and accommodation cost estimates
 // Flight costs are return economy averages in GBP (vary by departure airport)
 // Accommodation is per night in GBP
+// iataCode: used for Skyscanner flight search links
+// bookingSlug: used for Booking.com search links
 
 export const europeanDestinations = [
   {
     name: "Paris, France",
     country: "France",
+    iataCode: "CDG",
+    bookingSlug: "Paris",
     flightHours: 1.5,
     baseFlightCost: { LHR: 120, LGW: 100, STN: 90, MAN: 130, BHX: 140, EDI: 150, GLA: 150, LBA: 160, BRS: 140, LPL: 155, NCL: 160, CWL: 145, EMA: 150, SOU: 140, NWI: 145, ABZ: 170, INV: 185, EXT: 145, LTN: 80, BFS: 155, DSA: 160 },
     accommodation: { centre: 145, outskirts: 85 },
@@ -13,6 +17,8 @@ export const europeanDestinations = [
   {
     name: "Amsterdam, Netherlands",
     country: "Netherlands",
+    iataCode: "AMS",
+    bookingSlug: "Amsterdam",
     flightHours: 1.5,
     baseFlightCost: { LHR: 110, LGW: 95, STN: 85, MAN: 120, BHX: 130, EDI: 140, GLA: 140, LBA: 150, BRS: 130, LPL: 145, NCL: 150, CWL: 135, EMA: 140, SOU: 130, NWI: 135, ABZ: 160, INV: 175, EXT: 135, LTN: 75, BFS: 145, DSA: 150 },
     accommodation: { centre: 155, outskirts: 90 },
@@ -20,6 +26,8 @@ export const europeanDestinations = [
   {
     name: "Barcelona, Spain",
     country: "Spain",
+    iataCode: "BCN",
+    bookingSlug: "Barcelona",
     flightHours: 2.5,
     baseFlightCost: { LHR: 150, LGW: 130, STN: 120, MAN: 160, BHX: 165, EDI: 175, GLA: 175, LBA: 180, BRS: 160, LPL: 175, NCL: 180, CWL: 165, EMA: 170, SOU: 160, NWI: 165, ABZ: 190, INV: 200, EXT: 160, LTN: 100, BFS: 175, DSA: 180 },
     accommodation: { centre: 130, outskirts: 75 },
@@ -27,6 +35,8 @@ export const europeanDestinations = [
   {
     name: "Rome, Italy",
     country: "Italy",
+    iataCode: "FCO",
+    bookingSlug: "Rome",
     flightHours: 2.75,
     baseFlightCost: { LHR: 160, LGW: 140, STN: 130, MAN: 170, BHX: 175, EDI: 185, GLA: 185, LBA: 190, BRS: 170, LPL: 185, NCL: 190, CWL: 175, EMA: 180, SOU: 170, NWI: 175, ABZ: 200, INV: 215, EXT: 170, LTN: 110, BFS: 185, DSA: 190 },
     accommodation: { centre: 140, outskirts: 80 },
@@ -34,6 +44,8 @@ export const europeanDestinations = [
   {
     name: "Madrid, Spain",
     country: "Spain",
+    iataCode: "MAD",
+    bookingSlug: "Madrid",
     flightHours: 2.5,
     baseFlightCost: { LHR: 145, LGW: 125, STN: 115, MAN: 155, BHX: 160, EDI: 170, GLA: 170, LBA: 175, BRS: 155, LPL: 170, NCL: 175, CWL: 160, EMA: 165, SOU: 155, NWI: 160, ABZ: 185, INV: 200, EXT: 155, LTN: 95, BFS: 170, DSA: 175 },
     accommodation: { centre: 110, outskirts: 65 },
@@ -41,6 +53,8 @@ export const europeanDestinations = [
   {
     name: "Lisbon, Portugal",
     country: "Portugal",
+    iataCode: "LIS",
+    bookingSlug: "Lisbon",
     flightHours: 2.5,
     baseFlightCost: { LHR: 140, LGW: 120, STN: 110, MAN: 150, BHX: 155, EDI: 165, GLA: 165, LBA: 170, BRS: 150, LPL: 165, NCL: 170, CWL: 155, EMA: 160, SOU: 150, NWI: 155, ABZ: 180, INV: 195, EXT: 150, LTN: 90, BFS: 165, DSA: 170 },
     accommodation: { centre: 105, outskirts: 60 },
@@ -48,6 +62,8 @@ export const europeanDestinations = [
   {
     name: "Prague, Czech Republic",
     country: "Czech Republic",
+    iataCode: "PRG",
+    bookingSlug: "Prague",
     flightHours: 2.25,
     baseFlightCost: { LHR: 130, LGW: 110, STN: 100, MAN: 140, BHX: 145, EDI: 155, GLA: 155, LBA: 160, BRS: 140, LPL: 155, NCL: 160, CWL: 145, EMA: 150, SOU: 140, NWI: 145, ABZ: 170, INV: 185, EXT: 140, LTN: 80, BFS: 155, DSA: 160 },
     accommodation: { centre: 80, outskirts: 45 },
@@ -55,6 +71,8 @@ export const europeanDestinations = [
   {
     name: "Vienna, Austria",
     country: "Austria",
+    iataCode: "VIE",
+    bookingSlug: "Vienna",
     flightHours: 2.5,
     baseFlightCost: { LHR: 145, LGW: 125, STN: 115, MAN: 155, BHX: 160, EDI: 170, GLA: 170, LBA: 175, BRS: 155, LPL: 170, NCL: 175, CWL: 160, EMA: 165, SOU: 155, NWI: 160, ABZ: 185, INV: 200, EXT: 155, LTN: 95, BFS: 170, DSA: 175 },
     accommodation: { centre: 120, outskirts: 70 },
@@ -62,6 +80,8 @@ export const europeanDestinations = [
   {
     name: "Berlin, Germany",
     country: "Germany",
+    iataCode: "BER",
+    bookingSlug: "Berlin",
     flightHours: 2.0,
     baseFlightCost: { LHR: 125, LGW: 105, STN: 95, MAN: 135, BHX: 140, EDI: 150, GLA: 150, LBA: 155, BRS: 135, LPL: 150, NCL: 155, CWL: 140, EMA: 145, SOU: 135, NWI: 140, ABZ: 165, INV: 180, EXT: 135, LTN: 75, BFS: 150, DSA: 155 },
     accommodation: { centre: 100, outskirts: 58 },
@@ -69,6 +89,8 @@ export const europeanDestinations = [
   {
     name: "Copenhagen, Denmark",
     country: "Denmark",
+    iataCode: "CPH",
+    bookingSlug: "Copenhagen",
     flightHours: 2.0,
     baseFlightCost: { LHR: 160, LGW: 140, STN: 130, MAN: 165, BHX: 170, EDI: 155, GLA: 155, LBA: 165, BRS: 170, LPL: 165, NCL: 160, CWL: 170, EMA: 165, SOU: 170, NWI: 165, ABZ: 175, INV: 185, EXT: 170, LTN: 115, BFS: 165, DSA: 165 },
     accommodation: { centre: 165, outskirts: 95 },
@@ -76,6 +98,8 @@ export const europeanDestinations = [
   {
     name: "Dubrovnik, Croatia",
     country: "Croatia",
+    iataCode: "DBV",
+    bookingSlug: "Dubrovnik",
     flightHours: 3.0,
     baseFlightCost: { LHR: 175, LGW: 155, STN: 145, MAN: 185, BHX: 185, EDI: 195, GLA: 195, LBA: 200, BRS: 180, LPL: 195, NCL: 200, CWL: 185, EMA: 190, SOU: 180, NWI: 185, ABZ: 210, INV: 225, EXT: 180, LTN: 125, BFS: 195, DSA: 200 },
     accommodation: { centre: 125, outskirts: 70 },
@@ -83,6 +107,8 @@ export const europeanDestinations = [
   {
     name: "Florence, Italy",
     country: "Italy",
+    iataCode: "FLR",
+    bookingSlug: "Florence",
     flightHours: 2.5,
     baseFlightCost: { LHR: 155, LGW: 135, STN: 125, MAN: 165, BHX: 170, EDI: 180, GLA: 180, LBA: 185, BRS: 165, LPL: 180, NCL: 185, CWL: 170, EMA: 175, SOU: 165, NWI: 170, ABZ: 195, INV: 210, EXT: 165, LTN: 105, BFS: 180, DSA: 185 },
     accommodation: { centre: 130, outskirts: 75 },
@@ -90,6 +116,8 @@ export const europeanDestinations = [
   {
     name: "Porto, Portugal",
     country: "Portugal",
+    iataCode: "OPO",
+    bookingSlug: "Porto",
     flightHours: 2.25,
     baseFlightCost: { LHR: 135, LGW: 115, STN: 105, MAN: 145, BHX: 150, EDI: 160, GLA: 160, LBA: 165, BRS: 145, LPL: 160, NCL: 165, CWL: 150, EMA: 155, SOU: 145, NWI: 150, ABZ: 175, INV: 190, EXT: 145, LTN: 85, BFS: 160, DSA: 165 },
     accommodation: { centre: 95, outskirts: 55 },
@@ -97,6 +125,8 @@ export const europeanDestinations = [
   {
     name: "Athens, Greece",
     country: "Greece",
+    iataCode: "ATH",
+    bookingSlug: "Athens",
     flightHours: 3.75,
     baseFlightCost: { LHR: 190, LGW: 170, STN: 160, MAN: 200, BHX: 200, EDI: 210, GLA: 210, LBA: 215, BRS: 195, LPL: 210, NCL: 215, CWL: 200, EMA: 205, SOU: 195, NWI: 200, ABZ: 225, INV: 240, EXT: 195, LTN: 140, BFS: 210, DSA: 215 },
     accommodation: { centre: 95, outskirts: 55 },
@@ -104,6 +134,8 @@ export const europeanDestinations = [
   {
     name: "Budapest, Hungary",
     country: "Hungary",
+    iataCode: "BUD",
+    bookingSlug: "Budapest",
     flightHours: 2.75,
     baseFlightCost: { LHR: 140, LGW: 120, STN: 110, MAN: 150, BHX: 155, EDI: 165, GLA: 165, LBA: 170, BRS: 150, LPL: 165, NCL: 170, CWL: 155, EMA: 160, SOU: 150, NWI: 155, ABZ: 180, INV: 195, EXT: 150, LTN: 90, BFS: 165, DSA: 170 },
     accommodation: { centre: 85, outskirts: 48 },
@@ -111,6 +143,8 @@ export const europeanDestinations = [
   {
     name: "Krakow, Poland",
     country: "Poland",
+    iataCode: "KRK",
+    bookingSlug: "Krakow",
     flightHours: 2.5,
     baseFlightCost: { LHR: 120, LGW: 100, STN: 90, MAN: 130, BHX: 135, EDI: 145, GLA: 145, LBA: 150, BRS: 130, LPL: 145, NCL: 150, CWL: 135, EMA: 140, SOU: 130, NWI: 135, ABZ: 160, INV: 175, EXT: 130, LTN: 70, BFS: 145, DSA: 150 },
     accommodation: { centre: 65, outskirts: 38 },
@@ -118,6 +152,8 @@ export const europeanDestinations = [
   {
     name: "Seville, Spain",
     country: "Spain",
+    iataCode: "SVQ",
+    bookingSlug: "Seville",
     flightHours: 2.75,
     baseFlightCost: { LHR: 150, LGW: 130, STN: 120, MAN: 160, BHX: 165, EDI: 175, GLA: 175, LBA: 180, BRS: 160, LPL: 175, NCL: 180, CWL: 165, EMA: 170, SOU: 160, NWI: 165, ABZ: 190, INV: 205, EXT: 160, LTN: 100, BFS: 175, DSA: 180 },
     accommodation: { centre: 100, outskirts: 58 },
@@ -125,6 +161,8 @@ export const europeanDestinations = [
   {
     name: "Santorini, Greece",
     country: "Greece",
+    iataCode: "JTR",
+    bookingSlug: "Santorini",
     flightHours: 4.0,
     baseFlightCost: { LHR: 220, LGW: 200, STN: 190, MAN: 230, BHX: 230, EDI: 240, GLA: 240, LBA: 245, BRS: 225, LPL: 240, NCL: 245, CWL: 230, EMA: 235, SOU: 225, NWI: 230, ABZ: 255, INV: 270, EXT: 225, LTN: 170, BFS: 240, DSA: 245 },
     accommodation: { centre: 200, outskirts: 120 },
@@ -132,6 +170,8 @@ export const europeanDestinations = [
   {
     name: "Nice, France",
     country: "France",
+    iataCode: "NCE",
+    bookingSlug: "Nice",
     flightHours: 2.25,
     baseFlightCost: { LHR: 145, LGW: 125, STN: 115, MAN: 155, BHX: 160, EDI: 170, GLA: 170, LBA: 175, BRS: 155, LPL: 170, NCL: 175, CWL: 160, EMA: 165, SOU: 155, NWI: 160, ABZ: 185, INV: 200, EXT: 155, LTN: 95, BFS: 170, DSA: 175 },
     accommodation: { centre: 135, outskirts: 78 },
@@ -139,6 +179,8 @@ export const europeanDestinations = [
   {
     name: "Bruges, Belgium",
     country: "Belgium",
+    iataCode: "BRU",
+    bookingSlug: "Bruges",
     flightHours: 1.25,
     baseFlightCost: { LHR: 115, LGW: 95, STN: 85, MAN: 125, BHX: 130, EDI: 140, GLA: 140, LBA: 145, BRS: 125, LPL: 140, NCL: 145, CWL: 130, EMA: 135, SOU: 125, NWI: 130, ABZ: 155, INV: 170, EXT: 125, LTN: 65, BFS: 140, DSA: 145 },
     accommodation: { centre: 115, outskirts: 65 },
@@ -146,6 +188,8 @@ export const europeanDestinations = [
   {
     name: "Valletta, Malta",
     country: "Malta",
+    iataCode: "MLA",
+    bookingSlug: "Valletta",
     flightHours: 3.0,
     baseFlightCost: { LHR: 165, LGW: 145, STN: 135, MAN: 175, BHX: 175, EDI: 185, GLA: 185, LBA: 190, BRS: 170, LPL: 185, NCL: 190, CWL: 175, EMA: 180, SOU: 170, NWI: 175, ABZ: 200, INV: 215, EXT: 170, LTN: 115, BFS: 185, DSA: 190 },
     accommodation: { centre: 90, outskirts: 52 },
@@ -153,6 +197,8 @@ export const europeanDestinations = [
   {
     name: "Reykjavik, Iceland",
     country: "Iceland",
+    iataCode: "KEF",
+    bookingSlug: "Reykjavik",
     flightHours: 3.0,
     baseFlightCost: { LHR: 200, LGW: 180, STN: 170, MAN: 205, BHX: 210, EDI: 195, GLA: 195, LBA: 205, BRS: 210, LPL: 205, NCL: 200, CWL: 210, EMA: 205, SOU: 210, NWI: 205, ABZ: 215, INV: 210, EXT: 210, LTN: 155, BFS: 205, DSA: 205 },
     accommodation: { centre: 170, outskirts: 100 },

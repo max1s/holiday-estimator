@@ -149,68 +149,91 @@
   white-space: nowrap;
 }
 
-/* ── Bar chart ── */
-.bar-chart {
-  display: flex;
-  height: 12px;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 10px;
-  background: #e0e0e0;
+/* ── Cost table ── */
+.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
 }
-.bar-segment {
-  height: 100%;
-  transition: width 0.4s ease;
-}
-.bar-segment:nth-child(1) { background: #4a6cf7; }
-.bar-segment:nth-child(2) { background: #f7924a; }
-.bar-segment:nth-child(3) { background: #4acf7c; }
-.bar-segment:nth-child(4) { background: #cf4a7c; }
 
-.bar-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  margin-bottom: 20px;
-}
-.legend-item {
+.cost-table thead th {
+  text-align: right;
   font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  padding: 0 8px 10px;
+  border-bottom: 1px solid #dde3ff;
 }
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-.legend-item:nth-child(1) .legend-dot { background: #4a6cf7; }
-.legend-item:nth-child(2) .legend-dot { background: #f7924a; }
-.legend-item:nth-child(3) .legend-dot { background: #4acf7c; }
-.legend-item:nth-child(4) .legend-dot { background: #cf4a7c; }
+.cost-table thead th.col-label { text-align: left; padding-left: 0; }
+.cost-table thead th.col-book  { text-align: right; }
 
-/* ── Total ── */
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 2px solid #dde3ff;
-  padding-top: 16px;
-  font-weight: 700;
-  font-size: 1.1rem;
+.cost-table tbody tr {
+  border-bottom: 1px solid #eef0ff;
 }
-.total-value {
-  font-size: 1.4rem;
+.cost-table tbody td {
+  padding: 12px 8px;
+  vertical-align: top;
+}
+.cost-table tbody td:first-child { padding-left: 0; }
+
+.cost-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.cost-sublabel {
+  display: block;
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 2px;
+}
+
+.price-cell {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 600;
+  vertical-align: middle;
+}
+.price-cell.cheap { color: #1a9e5c; }
+.price-cell.avg   { color: #555; }
+
+.book-cell {
+  text-align: right;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.book-link {
+  font-size: 0.78rem;
   color: #4a6cf7;
+  text-decoration: none;
+  border: 1px solid #c5d0ff;
+  border-radius: 4px;
+  padding: 3px 7px;
+  white-space: nowrap;
 }
-.per-night {
+.book-link:hover { background: #eef1ff; }
+
+/* ── Totals / footer ── */
+.cost-table tfoot .total-row td {
+  padding-top: 14px;
+  border-top: 2px solid #dde3ff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.cost-table tfoot .total-row .total-value {
+  font-size: 1.15rem;
+}
+.cost-table tfoot .total-row .price-cell.cheap { color: #1a9e5c; }
+.cost-table tfoot .total-row .price-cell.avg   { color: #4a6cf7; }
+
+.cost-table tfoot .per-night-row td {
+  padding-top: 4px;
   font-size: 0.8rem;
   color: #888;
-  text-align: right;
-  margin-top: 4px;
 }
+
 .disclaimer {
   margin-top: 16px;
   font-size: 0.75rem;
