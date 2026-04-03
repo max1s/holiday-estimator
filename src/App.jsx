@@ -5,29 +5,34 @@ import { calcTotalCost } from "./utils/calculator";
 import "./App.css";
 
 export default function App() {
-  const [result, setResult] = useState(null);
-  const [inputs, setInputs] = useState(null);
+  const [result, setResult]   = useState(null);
+  const [inputs, setInputs]   = useState(null);
+  const [animKey, setAnimKey] = useState(0);
 
   const handleCalculate = (formInputs) => {
     const costs = calcTotalCost(formInputs);
     setInputs(formInputs);
     setResult(costs);
+    setAnimKey((k) => k + 1); // retrigger fade-in on recalculate
   };
 
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Holiday Cost Estimator</h1>
-        <p>Estimate the total cost of a European getaway from the UK</p>
+        <div className="header-inner">
+          <span className="header-icon">✈️</span>
+          <h1>Holiday Cost Estimator</h1>
+          <p>Plan your European getaway — see the cheapest and average cost, with links to book everything.</p>
+        </div>
       </header>
 
       <main className="app-main">
-        <section className="form-section">
+        <section className="form-card">
           <HolidayForm onCalculate={handleCalculate} />
         </section>
 
         {result && (
-          <section className="result-section">
+          <section className="result-card" key={animKey}>
             <CostBreakdown result={result} inputs={inputs} />
           </section>
         )}

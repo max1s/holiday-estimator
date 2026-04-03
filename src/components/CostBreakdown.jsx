@@ -23,38 +23,42 @@ export default function CostBreakdown({ result, inputs }) {
 
   const rows = [
     {
-      label:    `${modeLabel} to/from ${city.airport}`,
-      sublabel: `${fmt(cheapest.meta.transportOneWay)}–${fmt(average.meta.transportOneWay)} one-way × 2`,
-      cheap:    cheapest.transportTotal,
-      avg:      average.transportTotal,
-      link:     transportLink(transportMode),
+      label:     `${modeLabel} to/from ${city.airport}`,
+      sublabel:  `${fmt(cheapest.meta.transportOneWay)}–${fmt(average.meta.transportOneWay)} one-way × 2`,
+      cheap:     cheapest.transportTotal,
+      avg:       average.transportTotal,
+      link:      transportLink(transportMode),
       linkLabel: transportMode === "car" ? null : "Book",
     },
     transportMode === "car" && {
-      label:    `Airport parking at ${city.airport}`,
-      sublabel: `Off-airport vs on-airport · ${nights + 1} days`,
-      cheap:    cheapest.parking,
-      avg:      average.parking,
-      link:     parkingLink(city.parkingSlug),
+      label:     `Airport parking at ${city.airport}`,
+      sublabel:  `Off-airport vs on-airport · ${nights + 1} days`,
+      cheap:     cheapest.parking,
+      avg:       average.parking,
+      link:      parkingLink(city.parkingSlug),
       linkLabel: "Compare",
     },
     {
-      label:    `Return flights to ${destination.name}`,
-      sublabel: `Budget carrier vs average economy`,
-      cheap:    cheapest.flights,
-      avg:      average.flights,
-      link:     flightLink(city.airportCode, destination.iataCode),
+      label:     `Return flights to ${destination.name}`,
+      sublabel:  `Budget carrier vs average economy`,
+      cheap:     cheapest.flights,
+      avg:       average.flights,
+      link:      flightLink(city.airportCode, destination.iataCode),
       linkLabel: "Search",
     },
     {
-      label:    `Accommodation (${locationType === "centre" ? "city centre" : "outskirts"})`,
-      sublabel: `${fmt(cheapest.meta.accommodationPerNight)}–${fmt(average.meta.accommodationPerNight)}/night · ${nights} nights`,
-      cheap:    cheapest.accommodation,
-      avg:      average.accommodation,
-      link:     accommodationLink(destination.bookingSlug),
+      label:     `Accommodation (${locationType === "centre" ? "city centre" : "outskirts"})`,
+      sublabel:  `${fmt(cheapest.meta.accommodationPerNight)}–${fmt(average.meta.accommodationPerNight)}/night · ${nights} nights`,
+      cheap:     cheapest.accommodation,
+      avg:       average.accommodation,
+      link:      accommodationLink(destination.bookingSlug),
       linkLabel: "Search",
     },
   ].filter(Boolean);
+
+  // Bar chart — proportions based on average values
+  const barValues = rows.map((r) => r.avg);
+  const barTotal  = barValues.reduce((s, v) => s + v, 0);
 
   return (
     <div className="breakdown">
@@ -103,6 +107,32 @@ export default function CostBreakdown({ result, inputs }) {
           </tr>
         </tfoot>
       </table>
+
+      {/* Bar chart */}
+      <div className="bar-section">
+        <div className="bar-label-row">
+          <span>Cost breakdown</span>
+          <span>Average total: {fmt(average.total)}</span>
+        </div>
+        <div className="bar-track">
+          {rows.map((row, i) => (
+            <div
+              key={i}
+              className="bar-segment"
+              style={{ width: `${(row.avg / barTotal) * 100}%` }}
+              title={`${row.label}: ${fmt(row.avg)} (${Math.round((row.avg / barTotal) * 100)}%)`}
+            />
+          ))}
+        </div>
+        <div className="bar-legend">
+          {rows.map((row, i) => (
+            <span key={i} className="legend-item">
+              <span className="legend-dot" />
+              {row.label.split(" (")[0]} — {Math.round((row.avg / barTotal) * 100)}%
+            </span>
+          ))}
+        </div>
+      </div>
 
       <p className="disclaimer">
         Cheapest: budget carrier, off-airport parking booked early, budget hotel/hostel.

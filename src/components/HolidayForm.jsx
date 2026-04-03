@@ -33,7 +33,7 @@ export default function HolidayForm({ onCalculate }) {
 
   return (
     <form onSubmit={handleSubmit} className="form">
-      <div className="form-group">
+      <div className="form-group full-width">
         <label htmlFor="city">Starting location (UK)</label>
         <select
           id="city"
@@ -87,7 +87,7 @@ export default function HolidayForm({ onCalculate }) {
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group full-width">
         <label htmlFor="destination">Destination city</label>
         <select
           id="destination"
@@ -104,34 +104,32 @@ export default function HolidayForm({ onCalculate }) {
         </select>
       </div>
 
-      <div className="form-group">
+      <div className="form-group full-width">
         <label>Accommodation location</label>
         <div className="radio-group">
-          <label>
-            <input
-              type="radio"
-              name="locationType"
-              value="centre"
-              checked={form.locationType === "centre"}
-              onChange={() => set("locationType", "centre")}
-            />
-            City centre
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="locationType"
-              value="outskirts"
-              checked={form.locationType === "outskirts"}
-              onChange={() => set("locationType", "outskirts")}
-            />
-            Outskirts / suburbs
-          </label>
+          {[
+            { value: "centre",   label: "🏙️ City centre" },
+            { value: "outskirts", label: "🌿 Outskirts / suburbs" },
+          ].map((opt) => (
+            <label
+              key={opt.value}
+              className={`radio-option${form.locationType === opt.value ? " selected" : ""}`}
+            >
+              <input
+                type="radio"
+                name="locationType"
+                value={opt.value}
+                checked={form.locationType === opt.value}
+                onChange={() => set("locationType", opt.value)}
+              />
+              {opt.label}
+            </label>
+          ))}
         </div>
       </div>
 
       <button type="submit" disabled={!isValid} className="btn-calculate">
-        Calculate cost
+        Estimate my holiday cost →
       </button>
     </form>
   );
